@@ -15,6 +15,7 @@ namespace GarageEngine {
 		Vec3 scale_dimensions;
 		Versor orientation;
 
+
 		void ApplyDirections() {
 			Mat4 orientation_matrix = orientation.to_matrix();
 			up = orientation_matrix * Vec4(0.0f, 1.0f, 0.0f, 0.0f);
