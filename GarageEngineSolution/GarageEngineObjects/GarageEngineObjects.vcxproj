@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)GarageMathLibrary;$(SolutionDir)GarageLog;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\gtom_\source\repos\C++Practice\openGLProjects\openGL_source\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)libs;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\GarageRuleSet.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
