@@ -8,6 +8,14 @@ void Model::Draw(Shader& shader) {
 	}
 }
 
+void Model::Draw()
+{
+	for (unsigned int i = 0; i < meshes.size(); i++) {
+		shader->UseShader();
+		meshes[i].Draw(*shader);
+	}
+}
+
 void Model::LoadModel(string path) {
 	Assimp::Importer importer;
 
