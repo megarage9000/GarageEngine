@@ -115,7 +115,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -149,6 +149,9 @@
     </ProjectReference>
     <ProjectReference Include="..\GarageMathLibrary\GarageMathLibrary.vcxproj">
       <Project>{fc86f217-516a-4967-8c8f-c38bad6adecf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GarageMesh\GarageMesh.vcxproj">
+      <Project>{89efd2e6-8cd0-4fdf-9d4b-73b17bb8ca13}</Project>
     </ProjectReference>
     <ProjectReference Include="..\GarageShaders\GarageShaders.vcxproj">
       <Project>{1ec31011-cbc0-45aa-8926-98984e4cd5ea}</Project>

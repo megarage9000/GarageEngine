@@ -4,7 +4,6 @@
 #include "GarageShaders.h"
 #include "Model.h"
 #include "GarageEngineObject.h"
-#include "Model.h"
 #include "DebugOutput.h"
 
 // Window Size
