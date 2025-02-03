@@ -4,6 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageEngineSolution", "GarageEngineSolution.vcxproj", "{2B30ACC2-8BD8-4CB9-A9CD-241478465AF6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1EC31011-CBC0-45AA-8926-98984E4CD5EA} = {1EC31011-CBC0-45AA-8926-98984E4CD5EA}
+		{5EC4BBC2-40E2-40A3-9976-77DA650C4695} = {5EC4BBC2-40E2-40A3-9976-77DA650C4695}
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13} = {89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}
+		{A5EB2910-78C7-4AF1-BC32-14CF69824CE8} = {A5EB2910-78C7-4AF1-BC32-14CF69824CE8}
+		{FC86F217-516A-4967-8C8F-C38BAD6ADECF} = {FC86F217-516A-4967-8C8F-C38BAD6ADECF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageEngineObjects", "GarageEngineObjects\GarageEngineObjects.vcxproj", "{A5EB2910-78C7-4AF1-BC32-14CF69824CE8}"
 EndProject
@@ -13,9 +20,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageShaders", "GarageShad
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageLog", "GarageLog\GarageLog.vcxproj", "{5EC4BBC2-40E2-40A3-9976-77DA650C4695}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageGLEngine", "GarageGLEngine\GarageGLEngine.vcxproj", "{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshDemo", "MeshDemo\MeshDemo.vcxproj", "{426820EA-EA5C-4AA7-8D76-6677D92D7CED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13} = {89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarageMesh", "GarageMesh\GarageMesh.vcxproj", "{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,14 +75,6 @@ Global
 		{5EC4BBC2-40E2-40A3-9976-77DA650C4695}.Release|x64.Build.0 = Release|x64
 		{5EC4BBC2-40E2-40A3-9976-77DA650C4695}.Release|x86.ActiveCfg = Release|Win32
 		{5EC4BBC2-40E2-40A3-9976-77DA650C4695}.Release|x86.Build.0 = Release|Win32
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Debug|x64.ActiveCfg = Debug|x64
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Debug|x64.Build.0 = Debug|x64
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Debug|x86.ActiveCfg = Debug|Win32
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Debug|x86.Build.0 = Debug|Win32
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Release|x64.ActiveCfg = Release|x64
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Release|x64.Build.0 = Release|x64
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Release|x86.ActiveCfg = Release|Win32
-		{C206C4F7-AB8E-40CC-9D97-4F055D1BA3B6}.Release|x86.Build.0 = Release|Win32
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Debug|x64.ActiveCfg = Debug|x64
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Debug|x64.Build.0 = Debug|x64
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Debug|x86.ActiveCfg = Debug|Win32
@@ -81,6 +83,14 @@ Global
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Release|x64.Build.0 = Release|x64
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Release|x86.ActiveCfg = Release|Win32
 		{426820EA-EA5C-4AA7-8D76-6677D92D7CED}.Release|x86.Build.0 = Release|Win32
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Debug|x64.ActiveCfg = Debug|x64
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Debug|x64.Build.0 = Debug|x64
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Debug|x86.ActiveCfg = Debug|Win32
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Debug|x86.Build.0 = Debug|Win32
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Release|x64.ActiveCfg = Release|x64
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Release|x64.Build.0 = Release|x64
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Release|x86.ActiveCfg = Release|Win32
+		{89EFD2E6-8CD0-4FDF-9D4B-73B17BB8CA13}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

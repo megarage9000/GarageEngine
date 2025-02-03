@@ -2,8 +2,8 @@
 #include <GLFW/glfw3.h>
 
 #include "GarageShaders.h"
-#include "GarageEngineObject.h"
 #include "Model.h"
+#include "GarageEngineObject.h"
 #include "DebugOutput.h"
 
 // Window Size
