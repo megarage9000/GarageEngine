@@ -18,7 +18,11 @@ float camera_movement_speed = 10.0f;
 #pragma region Camera Object
 GarageEngine::CameraObject cameraObject;
 // Define positions and models here
+
 vector<GarageEngine::RenderableObject> renderableObjects;
+vector<GarageEngine::EngineObject> engineObjects;
+vector<Shader> shaders;
+vector<Model> models;
 Mat4 projection;
 #pragma endregion
 
@@ -32,7 +36,7 @@ void onInitialize();
 void onLoop(GLFWwindow * window);
 
 #pragma endregion
-
+ 
 int main() {	
 	RenderingFrame renderingContext{ 3, 2, 1280, 720, onInitialize, onLoop };
 	renderingContext.StartLoop();
@@ -56,19 +60,27 @@ void onInitialize()
 		"mesh.vert",
 		"mesh.frag");
 
+	shaders.push_back(MeshShader);
+
 	// Define Models here
 	Model model{ "..\\testMeshes\\backpack\\backpack.obj" };
 	Model floor{ "..\\testMeshes\\floor\\floor.fbx" };
 
+	models.push_back(model);
+	models.push_back(floor);
+
 	// Defining objects to use scene
 	GarageEngine::EngineObject floorObject = GarageEngine::EngineObject{ Vec3{0.0f, -2.0f, 0.0f}, Versor {1.0f, 0.0f, 0.0f, 90.0f} };
 	floorObject.ApplyScale(Vec3{ 5.0f, 5.0f, 1.0f });
+	engineObjects.push_back(floorObject);
+
 	renderableObjects.push_back(
 		GarageEngine::RenderableObject{ floorObject, &floor, &MeshShader }
 	);
 
 	for (int i = 0; i < 10; i++) {
 		GarageEngine::EngineObject transform{ Vec3 {-10.0f + (i * 2), 0.0f, 0.0f}, Versor {0.0f, 0.0f, 0.0f, 0.0f} };
+		engineObjects.push_back(transform);
 		GarageEngine::RenderableObject renderable{ transform, &model, &MeshShader };
 		renderableObjects.push_back(renderable);
 	}
