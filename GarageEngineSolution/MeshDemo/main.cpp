@@ -2,8 +2,8 @@
 #include <GLFW/glfw3.h>
 
 #include "GarageShaders.h"
-#include "GarageEngineObject.h"
 #include "Model.h"
+#include "GarageEngineObject.h"
 #include "DebugOutput.h"
 
 // Window Size
@@ -31,10 +31,6 @@ void glfw_window_framebuffer_callback(GLFWwindow* window, int width, int height)
 GarageEngine::CameraObject cameraObject = GarageEngine::CameraObject{ Vec3 {0.0f, 0.0f, 0.0f}, Versor {0.0f, 0.0f, 0.0f, 0.0f} };
 #pragma endregion
 
-#pragma region Mesh Object
-GarageEngine::EngineObject meshObject = GarageEngine::EngineObject{ Vec3 {0.0f, 0.0f, -5.0f}, Versor {0.0f, 0.0f, 0.0f, 0.0f} };
-#pragma endregion
-
 #pragma region Function declarations
 GLFWwindow* create_window(int version_major, int version_minor);
 void setup_debug();
@@ -44,7 +40,7 @@ void input_continuous_callback(GLFWwindow* window);
 #pragma endregion
 
 int main() {	
-	
+
 	if (!restart_gl_log()) {
 		return -1;
 	}
@@ -79,7 +75,17 @@ int main() {
 		"mesh.frag");
 
 	// Define Model here
-	Model model{ "..\\testMeshes\\backpack\\backpack.obj" };
+	Model model{ "..\\testMeshes\\backpack\\backpack.obj", &MeshShader };
+
+	// Define positions and models here
+	vector<GarageEngine::RenderableObject> renderableObjects;
+
+	for (int i = 0; i < 10; i++) {
+		GarageEngine::EngineObject transform{ Vec3 {-10.0f + (i * 2), 0.0f, 0.0f}, Versor {0.0f, 0.0f, 0.0f, 0.0f}};
+		GarageEngine::RenderableObject renderable{ transform, &model, &MeshShader };
+		renderableObjects.push_back(renderable);
+	}
+
 
 	// Define projection matrix
 	Mat4 projection = set_up_projection_matrix();
@@ -88,7 +94,6 @@ int main() {
 	glfwSetKeyCallback(window, input_callback);
 
 	// TODO: Add transforms and such:
-
 
 	previous_time = glfwGetTime();
 
@@ -107,12 +112,18 @@ int main() {
 		previous_time = current_time;
 
 
-		MeshShader.SetMatrix4("transform_matrix", meshObject.GetTransformationMatrix(), GL_TRUE);
-		MeshShader.SetMatrix4("projection", projection, GL_TRUE);
-		MeshShader.SetMatrix4("view", cameraObject.GetViewMatrix(), GL_TRUE);
+		//MeshShader.SetMatrix4("transform_matrix", meshObject.GetTransformationMatrix(), GL_TRUE);
+		//MeshShader.SetMatrix4("projection", projection, GL_TRUE);
+		//MeshShader.SetMatrix4("view", cameraObject.GetViewMatrix(), GL_TRUE);
 
-		model.Draw(MeshShader);
+		//model.Draw();
 		
+		for (GarageEngine::RenderableObject& renderable : renderableObjects) {
+
+			renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
+			renderable.Update(cameraObject, projection);
+		}
+
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}

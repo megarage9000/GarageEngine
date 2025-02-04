@@ -109,13 +109,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)GarageLog;$(SolutionDir)GarageMathLibrary;$(SolutionDir)GarageShaders;$(SolutionDir)GarageEngineObjects;$(SolutionDir)AdditionalIncludes;$(SolutionDir)LibraryIncludes\GLFW\include;$(SolutionDir)LibraryIncludes\assimp\include;$(SolutionDir)LibraryIncludes\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GarageLog;$(SolutionDir)GarageMathLibrary;$(SolutionDir)GarageShaders;$(SolutionDir)GarageEngineObjects;$(SolutionDir)GarageMesh;$(SolutionDir)AdditionalIncludes;$(SolutionDir)LibraryIncludes\GLFW\include;$(SolutionDir)LibraryIncludes\assimp\include;$(SolutionDir)LibraryIncludes\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(SolutionDir)libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -139,9 +139,6 @@
     <ClCompile Include="DebugOutput.cpp" />
     <ClCompile Include="GLFWHelpers.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GarageEngineObjects\GarageEngineObjects.vcxproj">
@@ -153,6 +150,9 @@
     <ProjectReference Include="..\GarageMathLibrary\GarageMathLibrary.vcxproj">
       <Project>{fc86f217-516a-4967-8c8f-c38bad6adecf}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\GarageMesh\GarageMesh.vcxproj">
+      <Project>{89efd2e6-8cd0-4fdf-9d4b-73b17bb8ca13}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\GarageShaders\GarageShaders.vcxproj">
       <Project>{1ec31011-cbc0-45aa-8926-98984e4cd5ea}</Project>
     </ProjectReference>
@@ -160,8 +160,6 @@
   <ItemGroup>
     <ClInclude Include="DebugOutput.h" />
     <ClInclude Include="GLFWHelpers.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\OpenGLCommon\Shaders\directionalLightShader.frag" />

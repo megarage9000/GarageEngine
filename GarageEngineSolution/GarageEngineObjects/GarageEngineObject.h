@@ -1,6 +1,8 @@
 #pragma once
 
 #include "GarageMathLibrary.h"
+#include "Model.h"
+#include "GarageShaders.h"
 #include <iostream>
 #include <vector>
 
@@ -10,14 +12,14 @@ namespace GarageEngine {
 
 #pragma region EngineObject
 	class EngineObject {
+
 	private:
 		Vec3 position;
 		Vec3 scale_dimensions;
 		Versor orientation;
 
-
 		void ApplyDirections() {
-			Mat4 orientation_matrix = orientation.to_matrix();
+			const Mat4 orientation_matrix = orientation.to_matrix();
 			up = orientation_matrix * Vec4(0.0f, 1.0f, 0.0f, 0.0f);
 			forward = orientation_matrix * Vec4(0.0f, 0.0f, 1.0f, 0.0f);
 			right = orientation_matrix * Vec4(1.0f, 0.0f, 0.0f, 0.0f);
@@ -85,6 +87,23 @@ namespace GarageEngine {
 		Vec3 GetUp();
 	};
 #pragma endregion CameraObject
+
+#pragma region RenderableObject
+	class RenderableObject {
+	public:
+		Model* model;
+		Shader* shader;
+		EngineObject engine_object;
+
+		RenderableObject(EngineObject& engine_object, Model* model, Shader* shader) 
+			: engine_object(engine_object), model(model), shader(shader) {}
+
+		virtual void Update(CameraObject& camera_object, const Mat4& projection_matrix);
+		virtual ~RenderableObject() = default;
+		
+	};
+
+#pragma endregion RenderableObject
 };
 
 

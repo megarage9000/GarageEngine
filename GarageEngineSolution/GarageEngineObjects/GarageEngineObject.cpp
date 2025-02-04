@@ -140,4 +140,21 @@ namespace GarageEngine {
 	}
 #pragma endregion CameraObject Methods
 
+#pragma region RenderableObject Methods
+
+#pragma endregion RenderableObject Methods
+
+	void RenderableObject::Update(CameraObject& camera_object, const Mat4& projection_matrix)
+	{
+		if (shader == nullptr || model == nullptr) {
+			return;
+		}
+
+		shader->SetMatrix4("transform_matrix", engine_object.GetTransformationMatrix(), GL_TRUE);
+		shader->SetMatrix4("projection", projection_matrix, GL_TRUE);
+		shader->SetMatrix4("view", camera_object.GetViewMatrix(), GL_TRUE);
+		model->Draw(*shader);
+		
+	}
+
 };

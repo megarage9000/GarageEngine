@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef  DEBUG_OUTPUT
+#ifndef DEBUG_OUTPUT
 #define DEBUG_OUTPUT
 
 #include <GL/glew.h>
@@ -15,7 +15,8 @@ void APIENTRY glDebugOutput(GLenum source,
     const char* message,
     const void* userParam);
 
-#endif // ! DEBUG_OUTPUT
+void setup_debug();
+#endif 
 
 
 

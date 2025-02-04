@@ -47,3 +47,16 @@ void APIENTRY glDebugOutput(
     } std::cout << std::endl;
     std::cout << std::endl;
 }
+
+void setup_debug() {
+    // Grabbing GL bits and checking if debugging is enabled
+    int flags;
+    glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+    if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+        std::cout << "Enabling Debug" << std::endl;
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        glDebugMessageCallback(glDebugOutput, nullptr);
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+    }
+}

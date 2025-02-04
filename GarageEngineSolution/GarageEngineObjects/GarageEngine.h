@@ -5,8 +5,5 @@
 
 #include "GarageEngineObject.h"
 
-namespace GarageEngine {
-
-};
 #endif
 
