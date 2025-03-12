@@ -184,12 +184,13 @@ namespace GarageLinearAlgebra
     // 4. Implement ostreams for all LinStructs
     // 5. Test
 
-    class Mat4 : public LinStruct {
+    class Mat4 {
         std::array<float, 16> values;
     public:
         Mat4();
         Mat4(float[], int);
         Mat4(std::array<float, 16>);
+        Mat4(const Mat4& other) : values(other.values) {}
         Mat4 inverse();
         Mat4 transpose();
         DoubleDimension operator[] (int);
@@ -202,12 +203,13 @@ namespace GarageLinearAlgebra
         void print();
     };
 
-    class Mat3 : public LinStruct {
+    class Mat3 {
         std::array<float, 9> values;
     public:
         Mat3();
         Mat3(float[], int);
         Mat3(std::array<float, 9>);
+        Mat3(const Mat3& other) : values(other.values) {}
         Mat3 inverse();
         Mat3 transpose();
         DoubleDimension operator[] (int);
@@ -220,11 +222,12 @@ namespace GarageLinearAlgebra
         void print();
     };
 
-    class Vec3 : public LinStruct {
+    class Vec3 {
         std::array<float, 3> values;
     public:
         Vec3();
         Vec3(float[], int);
+        Vec3(const Vec3& other) : values(other.values) { }
         Vec3(std::array<float, 3>);
         Vec3(float x, float y, float z);
         Vec3 normalize();
@@ -243,12 +246,13 @@ namespace GarageLinearAlgebra
         void print();
     };
 
-    class Vec4 : public LinStruct {
+    class Vec4 {
         std::array<float, 4> values;
     public:
         Vec4();
         Vec4(float[], int);
         Vec4(std::array<float, 4>);
+        Vec4(const Vec4& other) : values(other.values) {}
         Vec4(float x, float y, float z, float q = 1);
         Vec4(Vec3 vec3, float q = 1);
         Vec4 normalize(bool true_normalize = false);
