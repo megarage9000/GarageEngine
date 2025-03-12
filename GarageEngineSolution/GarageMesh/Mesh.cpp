@@ -44,9 +44,9 @@ void Mesh::Draw(Shader& shader) {
 	unsigned int specularNr = 1;
 
 	std::vector<unsigned int> diffuseSet;
-	std::fill_n(std::back_inserter(diffuseSet), 32, 0);
+	std::fill_n(std::back_inserter(diffuseSet), 16, 0);
 	std::vector<unsigned int> specularSet;
-	std::fill_n(std::back_inserter(specularSet), 32, 0);
+	std::fill_n(std::back_inserter(specularSet), 16, 0);
 
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		glActiveTexture(GL_TEXTURE0 + i);
@@ -74,8 +74,8 @@ void Mesh::Draw(Shader& shader) {
 	}
 
 	shader.UseShader();
-	shader.SetUIntArray("specular_set", specularSet.data(), 32);
-	shader.SetUIntArray("diffuse_set", diffuseSet.data(), 32);
+	shader.SetUIntArray("specular_set", specularSet.data(), 16);
+	shader.SetUIntArray("diffuse_set", diffuseSet.data(), 16);
 
 	// Draw Mesh
 	glBindVertexArray(VAO);

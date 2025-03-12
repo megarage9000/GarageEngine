@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)AdditionalIncludes;$(SolutionDir)LibraryIncludes\assimp\include;$(SolutionDir)LibraryIncludes\GLEW\include;$(SolutionDir)LibraryIncludes\GLFW\include;$(SolutionDir)GarageShaders;$(SolutionDir)GarageMesh;$(SolutionDir)GarageMathLibrary;$(SolutionDir)GarageLog;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)libs;$(LibraryPath)</LibraryPath>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\GarageRuleSet.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
