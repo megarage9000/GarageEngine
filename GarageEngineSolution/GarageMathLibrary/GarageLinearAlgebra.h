@@ -179,13 +179,11 @@ namespace GarageLinearAlgebra
         float& operator[] (int);
     };
 
-    // TODO
-    // 3. Implement normalize(), subtract() operator, magnitude, cross(), dot() for Vec3, Vec4
-    // 4. Implement ostreams for all LinStructs
-    // 5. Test
-
     class Mat4 {
+    private:
         std::array<float, 16> values;
+        const int DIMENSION = 4;
+        const int SIZE = 16;
     public:
         Mat4();
         Mat4(float[], int);
@@ -204,7 +202,10 @@ namespace GarageLinearAlgebra
     };
 
     class Mat3 {
+    private:
         std::array<float, 9> values;
+        const int DIMENSION = 3;
+        const int SIZE = 9;
     public:
         Mat3();
         Mat3(float[], int);
@@ -223,7 +224,9 @@ namespace GarageLinearAlgebra
     };
 
     class Vec3 {
+    private:
         std::array<float, 3> values;
+        const int SIZE = 3;
     public:
         Vec3();
         Vec3(float[], int);
@@ -247,7 +250,9 @@ namespace GarageLinearAlgebra
     };
 
     class Vec4 {
+    private:
         std::array<float, 4> values;
+        const int SIZE = 4;
     public:
         Vec4();
         Vec4(float[], int);

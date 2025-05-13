@@ -156,7 +156,7 @@ GLFWwindow* create_window(int version_major, int version_minor) {
 	// Enable Anti-aliasing
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Global Illumination Project", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Demo Window", NULL, NULL);
 
 	glfwSetWindowSizeCallback(window, glfw_window_resize_callback);
 	glfwSetFramebufferSizeCallback(window, glfw_window_framebuffer_callback);
