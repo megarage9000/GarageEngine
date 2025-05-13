@@ -44,7 +44,7 @@ The ultimate end goal is to develop a complex project with what is learned here!
 
 ## :open_file_folder: Folder Index :open_file_folder:
 
-### In the Root folder, there are these following folders:
+**In the Root folder, there are these following folders:**
 
 - `OpenGLCommon`
 
@@ -54,7 +54,7 @@ A folder containing `.cpp`, `.h`, and shader (i.e. `.vert` and `.frag`) files co
 
 Used to store images used on this markdown file.
 
-### In the `GarageEngineSolution` folder, there these following folders / visual studio projects:
+**In the `GarageEngineSolution` folder, there these following folders / visual studio projects:**
 
 - `GarageLog/`
 
