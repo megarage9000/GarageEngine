@@ -64,10 +64,8 @@ namespace GarageEngine {
 #pragma endregion EngineObject
 
 #pragma region CameraObject
-
-
-
 	class CameraObject {
+	private:
 		Vec3 position;
 
 		Vec3 camera_front;
@@ -75,6 +73,9 @@ namespace GarageEngine {
 		Vec3 camera_right;
 
 		Versor orientation;
+
+		float yaw; 
+		float pitch;
 
 		void GetNewDirectionsOrientation() {
 			Mat4 orientation_matrix = orientation.to_matrix();
@@ -87,6 +88,8 @@ namespace GarageEngine {
 			camera_up = Vec3{ 0.0, 1.0f, 0.0f };
 			camera_right = Vec3{ 1.0f, 0.0f, 0.0f };
 			camera_front = Vec3{ 0.0f, 0.0f, -1.0f };
+			yaw = 0.0f;
+			pitch = 0.0f;
 		}
 
 	public:
@@ -94,6 +97,7 @@ namespace GarageEngine {
 		CameraObject(Vec3 position);
 		CameraObject(Vec3 position, Versor orientation);
 		void RealignGaze(float x, float y);
+		void UpdateYawAndPitch(float yaw, float pitch);
 		void ApplyTranslation(Vec3 translation_changes);
 		Mat4 GetViewMatrix();
 		Vec3 GetCameraPos();

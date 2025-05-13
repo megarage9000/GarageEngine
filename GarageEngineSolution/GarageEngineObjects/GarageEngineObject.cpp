@@ -113,6 +113,10 @@ namespace GarageEngine {
 		GetNewDirectionsOrientation();
 	}
 
+	void CameraObject::UpdateYawAndPitch(float yaw, float pitch)
+	{
+	}
+
 	void CameraObject::ApplyTranslation(Vec3 translation_changes) {
 		position = position -
 			camera_right * translation_changes[0] +

@@ -19,8 +19,10 @@ double previous_time = 0.0f;
 double elapsed_seconds = 0.0f;
 
 // Movement parameters
-float camera_rotation_sensitivity = 40.0f;
+float camera_rotation_sensitivity = 10.0f;
 float camera_movement_speed = 10.0f;
+float prevMouseYPos = 0.0f;
+float prevMouseXPos = 0.0f;
 
 #pragma region Callbacks
 void glfw_window_resize_callback(GLFWwindow* window, int width, int height);
@@ -37,6 +39,7 @@ void setup_debug();
 Mat4 set_up_projection_matrix();
 void input_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void input_continuous_callback(GLFWwindow* window);
+void mouse_input_callback(GLFWwindow* window, double xpos, double ypos);
 #pragma endregion
 
 int main() {	
@@ -92,6 +95,7 @@ int main() {
 
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
+	glfwSetCursorPosCallback(window, mouse_input_callback);
 
 	// TODO: Add transforms and such:
 
@@ -110,17 +114,10 @@ int main() {
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;
 		previous_time = current_time;
-
-
-		//MeshShader.SetMatrix4("transform_matrix", meshObject.GetTransformationMatrix(), GL_TRUE);
-		//MeshShader.SetMatrix4("projection", projection, GL_TRUE);
-		//MeshShader.SetMatrix4("view", cameraObject.GetViewMatrix(), GL_TRUE);
-
-		//model.Draw();
 		
 		for (GarageEngine::RenderableObject& renderable : renderableObjects) {
 
-			renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
+			// renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
 			renderable.Update(cameraObject, projection);
 		}
 
@@ -184,9 +181,6 @@ Mat4 set_up_projection_matrix() {
 }
 
 void input_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
-
-
 	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
 
 		switch (key) {
@@ -209,8 +203,7 @@ void input_callback(GLFWwindow* window, int key, int scancode, int action, int m
 void input_continuous_callback(GLFWwindow* window)
 {
 	Vec3 translationChanges{ 0.0f, 0.0f, 0.0f };
-	float pitch = 0.0f;
-	float yaw = 0.0f;
+
 
 	// Movement
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -226,20 +219,19 @@ void input_continuous_callback(GLFWwindow* window)
 		translationChanges[0] += -1.0f;
 	}
 	
-	// Rotation
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		pitch += camera_rotation_sensitivity * elapsed_seconds;
-	}
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		pitch -= camera_rotation_sensitivity * elapsed_seconds;
-	}
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		yaw += camera_rotation_sensitivity * elapsed_seconds;
-	}
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		yaw -= camera_rotation_sensitivity * elapsed_seconds;
-	}
+
 	
 	cameraObject.ApplyTranslation(translationChanges * 5.0f * elapsed_seconds);
+}
+
+void mouse_input_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	std::cout << "xpos = " << xpos << ", ypos = " << ypos << '\n';
+
+	float pitch = (ypos - prevMouseYPos) * camera_rotation_sensitivity * elapsed_seconds;
+	float yaw = (xpos - prevMouseXPos) * camera_rotation_sensitivity * elapsed_seconds;
+
 	cameraObject.RealignGaze(yaw, pitch);
+	prevMouseXPos = xpos;
+	prevMouseYPos = ypos;
 }
