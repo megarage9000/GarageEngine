@@ -190,7 +190,7 @@ void input_callback(GLFWwindow* window, int key, int scancode, int action, int m
 		switch (key) {
 
 			// Toggle Cursor Hide
-			case GLFW_KEY_E:
+			case GLFW_KEY_1:
 				toggle_mouse_lock(window);
 				break;
 		}
@@ -213,6 +213,14 @@ void input_continuous_callback(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		translationChanges[0] += -1.0f;
+	}
+
+	// Up and Down
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+		translationChanges[1] += 1.0f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+		translationChanges[1] += -1.0f;
 	}
 	
 	cameraObject.ApplyTranslation(translationChanges * 5.0f * elapsed_seconds);
