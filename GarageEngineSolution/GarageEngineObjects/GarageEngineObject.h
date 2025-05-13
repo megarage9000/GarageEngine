@@ -27,20 +27,17 @@ namespace GarageEngine {
 
 	public:
 
+		EngineObject(const EngineObject& other) noexcept {
+
+		}
+
 		// Move semantics 
-		
-
-
-		EngineObject(EngineObject&& other) noexcept : 
+		EngineObject(const EngineObject&& other) noexcept : 
 			position(other.position),
 			scale_dimensions(other.scale_dimensions),
 			orientation(other.orientation),
 			forward(other.forward),
-			up(other.up) {	
-			
-			other.position = Vec3{ 0.0, 0.0, 0.0 };
-			other.scale_dimensions = Vec3 {}
-		}
+			up(other.up) {	}
 
 
 

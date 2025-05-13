@@ -23,8 +23,6 @@ public:
 		models(vector<Model>()),
 		shaders(vector<Shader>()) {}
 	
-
-	void addEngineObject()
 };
 
 

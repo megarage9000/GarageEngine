@@ -22,18 +22,18 @@ namespace GarageLinearAlgebra
     }
 
     // ---- Matrix 4 -----
-    Mat4::Mat4() : LinStruct(4, 16) {
+    Mat4::Mat4() {
         copy_from_matrix4(IDENTITY_4, values.data(), 16, 16);
     }
 
-    Mat4::Mat4(float _values[], int _size) : LinStruct(4, 16) {
+    Mat4::Mat4(float _values[], int _size) {
         assert(_size == 16);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < _size; i++) {
             values[i] = _values[i];
         }
     }
 
-    Mat4::Mat4(std::array<float, 16> _values) : LinStruct(4, 16) {
+    Mat4::Mat4(std::array<float, 16> _values) {
         values = _values;
     }
 
@@ -50,8 +50,7 @@ namespace GarageLinearAlgebra
     }
 
     DoubleDimension Mat4::operator[] (int row) {
-        assert(row >= 0 && row < dimension);
-        return DoubleDimension(row * dimension, values.data());
+        return DoubleDimension(row * 4, values.data());
     }
 
     // Matrix 4 multis
@@ -114,19 +113,19 @@ namespace GarageLinearAlgebra
 
     // ---- Matrix 3 -----
 
-    Mat3::Mat3() : LinStruct(3, 9) {
+    Mat3::Mat3() {
         copy_from_matrix3(IDENTITY_3, values.data(), 9, values.size());
     }
 
-    Mat3::Mat3(float _values[], int _size) : LinStruct(3, 9) {
+    Mat3::Mat3(float _values[], int _size) {
         assert(_size == 9);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < _size; i++) {
             values[i] = _values[i];
         }
     }
 
 
-    Mat3::Mat3(std::array<float, 9> _values) : LinStruct(3, 9) {
+    Mat3::Mat3(std::array<float, 9> _values) {
         values = _values;
     }
 
@@ -143,8 +142,7 @@ namespace GarageLinearAlgebra
     }
 
     DoubleDimension Mat3::operator[](int row) {
-        assert(row >= 0 && row < dimension);
-        return DoubleDimension(row * dimension, values.data());
+        return DoubleDimension(row * 3, values.data());
     }
 
     Mat3& Mat3::operator = (const Mat3& other_matrix) {
