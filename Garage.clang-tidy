@@ -1,7 +1,0 @@
-
-Checks: >
-  cppcoreguidelines-*,
-  modernize-*,
-  performance-*,
-  readability-*,
-WarningsAsErrors: cppcoreguidelines-* # Treat core guideline warnings as errors
