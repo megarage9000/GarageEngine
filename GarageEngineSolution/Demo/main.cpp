@@ -21,8 +21,11 @@ double elapsed_seconds = 0.0f;
 // Movement parameters
 float camera_rotation_sensitivity = 10.0f;
 float camera_movement_speed = 10.0f;
-float prevMouseYPos = 0.0f;
-float prevMouseXPos = 0.0f;
+float prev_mouse_y_pos = 0.0f;
+float prev_mouse_x_pos = 0.0f;
+
+// Toggle mouse locks
+bool mouse_lock = false;
 
 #pragma region Callbacks
 void glfw_window_resize_callback(GLFWwindow* window, int width, int height);
@@ -40,6 +43,7 @@ Mat4 set_up_projection_matrix();
 void input_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void input_continuous_callback(GLFWwindow* window);
 void mouse_input_callback(GLFWwindow* window, double xpos, double ypos);
+void toggle_mouse_lock(GLFWwindow* window);
 #pragma endregion
 
 int main() {	
@@ -181,20 +185,13 @@ Mat4 set_up_projection_matrix() {
 }
 
 void input_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+	if (action == GLFW_PRESS) {
 
 		switch (key) {
 
-			// Look
-			case GLFW_KEY_UP:
-				break;
-			case GLFW_KEY_RIGHT:
-				break;
-			case GLFW_KEY_DOWN:
-				break;
-			case GLFW_KEY_LEFT:
-				break;
-			default:
+			// Toggle Cursor Hide
+			case GLFW_KEY_E:
+				toggle_mouse_lock(window);
 				break;
 		}
 	}
@@ -203,7 +200,6 @@ void input_callback(GLFWwindow* window, int key, int scancode, int action, int m
 void input_continuous_callback(GLFWwindow* window)
 {
 	Vec3 translationChanges{ 0.0f, 0.0f, 0.0f };
-
 
 	// Movement
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
@@ -219,19 +215,33 @@ void input_continuous_callback(GLFWwindow* window)
 		translationChanges[0] += -1.0f;
 	}
 	
-
-	
 	cameraObject.ApplyTranslation(translationChanges * 5.0f * elapsed_seconds);
 }
 
 void mouse_input_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	std::cout << "xpos = " << xpos << ", ypos = " << ypos << '\n';
+	if (mouse_lock) {
+		float pitch = -(ypos - prev_mouse_y_pos) * camera_rotation_sensitivity * elapsed_seconds;
+		float yaw = -(xpos - prev_mouse_x_pos) * camera_rotation_sensitivity * elapsed_seconds;
 
-	float pitch = (ypos - prevMouseYPos) * camera_rotation_sensitivity * elapsed_seconds;
-	float yaw = (xpos - prevMouseXPos) * camera_rotation_sensitivity * elapsed_seconds;
+		cameraObject.RealignGaze(yaw, pitch);
+		prev_mouse_x_pos = xpos;
+		prev_mouse_y_pos = ypos;
+	}
+}
 
-	cameraObject.RealignGaze(yaw, pitch);
-	prevMouseXPos = xpos;
-	prevMouseYPos = ypos;
+void toggle_mouse_lock(GLFWwindow * window)
+{
+	mouse_lock = !mouse_lock;
+
+	if (mouse_lock) {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+	double x_pos, y_pos;
+	glfwGetCursorPos(window, &x_pos, &y_pos);
+	prev_mouse_x_pos = x_pos;
+	prev_mouse_y_pos = y_pos;
 }
