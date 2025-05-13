@@ -42,6 +42,40 @@ The ultimate end goal is to develop a complex project with what is learned here!
 
     - Perspective and view matrix control
 
+## :hammer: How to Run the Project :hammer:
+
+**Requirements**
+
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
+- Windows Operating System
+
+*(Dependencies (i.e. `.dll`'s) are bundled in the project, no need to add additional files)*
+
+1. Clone the project
+2. Go to the `GarageEngineSolution` folder, and open the `GarageEngineSolution.sln` file.
+3. In the Visual Studio Window under the Solution Explorer, make sure to select the `Demo` Project as the start project:
+
+![Selecting Demo as startup](./thumbnails/select_demo_as_startup.png)
+
+4. Press the `Start Without Debugging` button:
+
+![Pressing Start Without Debugging](./thumbnails/select_start_without_debugging.png)
+
+5. The demo should be running by now!
+
+## :video_game: Interacting with the Project :video_game:
+
+Movement:
+
+- `WASD` for movement
+- `Q` to pan upwards
+- `E` to pan downwards
+
+Cursor:
+
+- `1` to toggle cursor visibility
+- Pan mouse to look around
+
 ## :open_file_folder: Folder Index :open_file_folder:
 
 **In the Root folder, there are these following folders:**
@@ -104,8 +138,7 @@ The following are a list of features to implement in the feature
 
 ## :video_camera: Project Playlist :video_camera:
 
-You can find the project playlist here:
+You can find the project playlist here (Click the picture!):
 
-[<img alt="Project Playlist" width="640px" height="480px" src="https://github.com/megarage9000/openGLProjects/blob/main/thumbnails/thumbnail_1.png" />](https://www.youtube.com/playlist?list=PLoYQN9sSaKPZtNqR3CzW2sLVft5kNCWhi)
-
+[![Project Playlist](./thumbnails/thumbnail_2.png)]([link_url](https://www.youtube.com/playlist?list=PLoYQN9sSaKPZtNqR3CzW2sLVft5kNCWhi))
    
