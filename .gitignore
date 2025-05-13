@@ -361,6 +361,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-openGL_source/
-.vscode/
-additionalNotes/
+# unignore assets used in the project
+!GarageEngineSolution/test_meshes/*.obj
