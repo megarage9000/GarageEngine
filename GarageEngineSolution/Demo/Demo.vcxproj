@@ -171,6 +171,8 @@
     <None Include="..\OpenGLCommon\Shaders\pointLightShader.frag" />
     <None Include="..\OpenGLCommon\Shaders\spotLightShader.frag" />
     <None Include="..\OpenGLCommon\Shaders\vertexShader.vert" />
+    <None Include="instancing.frag" />
+    <None Include="instancing.vert" />
     <None Include="mesh.frag" />
     <None Include="mesh.vert" />
   </ItemGroup>

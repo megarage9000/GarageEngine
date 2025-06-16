@@ -67,5 +67,11 @@
     <None Include="mesh.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="instancing.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="instancing.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

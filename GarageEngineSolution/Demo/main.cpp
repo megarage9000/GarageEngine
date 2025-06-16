@@ -44,6 +44,7 @@ void input_callback(GLFWwindow* window, int key, int scancode, int action, int m
 void input_continuous_callback(GLFWwindow* window);
 void mouse_input_callback(GLFWwindow* window, double xpos, double ypos);
 void toggle_mouse_lock(GLFWwindow* window);
+void setup_instancing();
 #pragma endregion
 
 int main() {	
@@ -76,26 +77,11 @@ int main() {
 	printf("Render %s\n", renderer);
 	printf("OpenGL version supported %s\n", version);
 
-	// Define Shader here
-	Shader MeshShader = Shader(
-		"mesh.vert", 
-		"mesh.frag");
-
-	// Define Model here
-	Model model{ "..\\testMeshes\\backpack\\backpack.obj", &MeshShader };
-
-	// Define positions and models here
-	vector<GarageEngine::RenderableObject> renderableObjects;
-
-	for (int i = 0; i < 10; i++) {
-		GarageEngine::EngineObject transform{ Vec3 {-10.0f + (i * 2), 0.0f, 0.0f}, Versor {0.0f, 0.0f, 0.0f, 0.0f}};
-		GarageEngine::RenderableObject renderable{ transform, &model, &MeshShader };
-		renderableObjects.push_back(renderable);
-	}
-
-
 	// Define projection matrix
 	Mat4 projection = set_up_projection_matrix();
+
+
+	setup_instancing();
 
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
@@ -119,11 +105,6 @@ int main() {
 		elapsed_seconds = current_time - previous_time;
 		previous_time = current_time;
 		
-		for (GarageEngine::RenderableObject& renderable : renderableObjects) {
-
-			// renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
-			renderable.Update(cameraObject, projection);
-		}
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);
@@ -252,4 +233,14 @@ void toggle_mouse_lock(GLFWwindow * window)
 	glfwGetCursorPos(window, &x_pos, &y_pos);
 	prev_mouse_x_pos = x_pos;
 	prev_mouse_y_pos = y_pos;
+}
+
+void setup_instancing()
+{
+	Shader vert_shader{
+		"instancing.vert",
+		"instancing.frag"
+	};
+
+
 }
