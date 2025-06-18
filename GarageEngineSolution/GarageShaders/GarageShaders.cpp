@@ -217,6 +217,11 @@ void Shader::SetVector3(const char* id, Vec3 vector, GLsizei count) {
 	glUniform3fv(uniform, count, vector);
 }
 
+void Shader::SetVector2(const char* id, const float vector[2], GLsizei count) {
+	GLuint uniform = GetShaderUniform(id);
+	glUniform2fv(uniform, count, vector);
+}
+
 void Shader::SetFloat(const char* id, float value, GLsizei count) {
 	GLuint uniform = GetShaderUniform(id);
 	glUniform1f(uniform, value);

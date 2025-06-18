@@ -44,7 +44,7 @@ void input_callback(GLFWwindow* window, int key, int scancode, int action, int m
 void input_continuous_callback(GLFWwindow* window);
 void mouse_input_callback(GLFWwindow* window, double xpos, double ypos);
 void toggle_mouse_lock(GLFWwindow* window);
-void setup_instancing();
+Shader setup_instancing(unsigned int& VAO);
 #pragma endregion
 
 int main() {	
@@ -80,15 +80,14 @@ int main() {
 	// Define projection matrix
 	Mat4 projection = set_up_projection_matrix();
 
-
-	setup_instancing();
+	unsigned int instancingVAO;
+	Shader instancing_shader = setup_instancing(instancingVAO);
 
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
 	glfwSetCursorPosCallback(window, mouse_input_callback);
 
 	// TODO: Add transforms and such:
-
 	previous_time = glfwGetTime();
 
 	glEnable(GL_DEPTH_TEST);
@@ -100,6 +99,10 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		input_continuous_callback(window);
+
+		instancing_shader.UseShader();
+		glBindVertexArray(instancingVAO);
+		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
 
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;
@@ -235,12 +238,67 @@ void toggle_mouse_lock(GLFWwindow * window)
 	prev_mouse_y_pos = y_pos;
 }
 
-void setup_instancing()
+Shader setup_instancing(unsigned int& VAO)
 {
-	Shader vert_shader{
+	Shader instancing_shader{
 		"instancing.vert",
 		"instancing.frag"
 	};
 
+	// 2D positions for the quad vertices
+	// (2 triangles put together)
+	float quad_vertices[]{
+		// Positions		// Colours
+		-0.05f, 0.05f,		1.0f, 0.0f, 0.0f,
+		0.05f, -0.05f,		0.0f, 1.0f, 0.0f,
+		-0.05f, -0.05f,		0.0f, 0.0f, 1.0f
 
+		- 0.05f, 0.05f,		1.0f, 0.0f, 0.0f,
+		0.05f, -0.05f,		0.0f, 1.0f, 0.0f,
+		0.05f, 0.05f,		0.0f, 1.0f, 1.0f
+	};
+
+	// Calculating the offsets
+	std::vector<vector<float>> offsets;
+
+	float offset = 0.1f;
+	
+	for (int y = -10; y < 10; y += 2) {
+		for (int x = -10; x < 10; x += 2) {
+			vector<float> translation;
+			translation.push_back(float(x) / 10.0f + offset);
+			translation.push_back(float(y) / 10.0f + offset);
+			offsets.push_back(translation);
+		}
+	}
+
+	instancing_shader.UseShader();
+
+	for (unsigned int i = 0; i < 100; i++) {
+		instancing_shader.SetVector2(("offsets[" + std::to_string(i) + "]").c_str(), offsets[i].data());
+	}
+	
+	unsigned int VBO;
+
+	// Generating a vertex array object
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	glGenBuffers(1, &VBO);
+
+	// Setting up the vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quad_vertices), quad_vertices, GL_STATIC_DRAW);
+	
+	// Enable position
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Enable colours
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glBindVertexArray(0);
+
+	return instancing_shader;
 }
