@@ -259,32 +259,29 @@ Shader setup_instancing(unsigned int& VAO)
 	};
 
 	// Calculating the offsets
-	std::vector<vector<float>> offsets;
+	std::vector<std::array<float, 2>> offsets;
 
 	float offset = 0.1f;
 	
 	for (int y = -10; y < 10; y += 2) {
 		for (int x = -10; x < 10; x += 2) {
-			vector<float> translation;
-			translation.push_back(float(x) / 10.0f + offset);
-			translation.push_back(float(y) / 10.0f + offset);
+			std::array<float, 2> translation { 
+				float(x) / 10.0f + offset, 
+				float(y) / 10.0f + offset };
 			offsets.push_back(translation);
 		}
 	}
 
 	instancing_shader.UseShader();
-
-	for (unsigned int i = 0; i < 100; i++) {
-		instancing_shader.SetVector2(("offsets[" + std::to_string(i) + "]").c_str(), offsets[i].data());
-	}
 	
-	unsigned int VBO;
+	unsigned int VBO, instancedVBO;
 
 	// Generating a vertex array object
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &instancedVBO);
 
 	// Setting up the vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -297,6 +294,22 @@ Shader setup_instancing(unsigned int& VAO)
 	// Enable colours
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Setting up instance VBO
+	glBindBuffer(GL_ARRAY_BUFFER, instancedVBO);
+	glBufferData(GL_ARRAY_BUFFER, offsets.size() * sizeof(std::array<float, 2>), offsets.data(), GL_STATIC_DRAW);
+
+
+	// Enable instanced offset attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Tells OpenGL to update the context this attribute pointer to the next instance (i.e. offset 1 for instance 1, offset 2 for instance 2 ... )
+	glVertexAttribDivisor(2, 1);
 
 	glBindVertexArray(0);
 
