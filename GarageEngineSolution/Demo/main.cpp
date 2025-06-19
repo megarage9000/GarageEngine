@@ -45,6 +45,7 @@ void input_continuous_callback(GLFWwindow* window);
 void mouse_input_callback(GLFWwindow* window, double xpos, double ypos);
 void toggle_mouse_lock(GLFWwindow* window);
 Shader setup_instancing(unsigned int& VAO);
+void setup_asteroid_scene(std::unique_ptr<Model> asteroid, std::unique_ptr<Model> planet, Shader& meshShader);
 #pragma endregion
 
 int main() {	
@@ -83,6 +84,18 @@ int main() {
 	unsigned int instancingVAO;
 	Shader instancing_shader = setup_instancing(instancingVAO);
 
+
+	// Asteroid scene
+
+	Model asteroid{ "..\\testMeshes\\rock\\rock.obj" };
+	Model planet{ "..\\testMeshes\\planet\\planet.obj" };
+	Shader meshShader{ "mesh.vert", "mesh.frag" };
+	GarageEngine::EngineObject planetTransformObject{ Vec3{0.0f, 0.0f, 0.0f}, Versor{} };
+	GarageEngine::EngineObject asteroidTransformObject{ Vec3{10.0f, 0.0f, 10.0f}, Versor{} };
+
+	GarageEngine::RenderableObject asteroidObject{ asteroidTransformObject, &asteroid, &meshShader };
+	GarageEngine::RenderableObject planetObject{ planetTransformObject, &planet, &meshShader };
+
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
 	glfwSetCursorPosCallback(window, mouse_input_callback);
@@ -100,9 +113,12 @@ int main() {
 
 		input_continuous_callback(window);
 
-		instancing_shader.UseShader();
-		glBindVertexArray(instancingVAO);
-		glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
+		//instancing_shader.UseShader();
+		//glBindVertexArray(instancingVAO);
+		//glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
+
+		asteroidObject.Update(cameraObject, projection);
+		// planetObject.Update(cameraObject, projection);
 
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;
