@@ -86,10 +86,10 @@ int main() {
 
 
 	// Asteroid scene
-
-	Model asteroid{ "..\\testMeshes\\rock\\rock.obj" };
 	Model planet{ "..\\testMeshes\\planet\\planet.obj" };
+	Model asteroid{ "..\\testMeshes\\rock\\rock.obj" };
 	Shader meshShader{ "mesh.vert", "mesh.frag" };
+
 	GarageEngine::EngineObject planetTransformObject{ Vec3{0.0f, 0.0f, 0.0f}, Versor{} };
 	GarageEngine::EngineObject asteroidTransformObject{ Vec3{10.0f, 0.0f, 10.0f}, Versor{} };
 
@@ -118,7 +118,7 @@ int main() {
 		//glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
 
 		asteroidObject.Update(cameraObject, projection);
-		// planetObject.Update(cameraObject, projection);
+		planetObject.Update(cameraObject, projection);
 
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;

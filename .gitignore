@@ -362,4 +362,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # unignore assets used in the project
+!GarageEngineSolution/
+!GarageEngineSolution/test_meshes/
 !GarageEngineSolution/test_meshes/*.obj
