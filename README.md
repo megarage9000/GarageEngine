@@ -138,7 +138,7 @@ The following are a list of features to implement in the feature
 
 ## :video_camera: Project Playlist :video_camera:
 
-You can find the project playlist here (Click the picture!):
+You can find the project playlist [here](https://www.youtube.com/playlist?list=PLoYQN9sSaKPZtNqR3CzW2sLVft5kNCWhi)
 
 [![Project Playlist](./thumbnails/thumbnail_2.png)]([link_url](https://www.youtube.com/playlist?list=PLoYQN9sSaKPZtNqR3CzW2sLVft5kNCWhi))
    
