@@ -8,6 +8,14 @@ void Model::Draw(Shader& shader) {
 	}
 }
 
+void Model::DrawInstanced(Shader& shader, unsigned int numberOfInstances)
+{
+	for (unsigned int i = 0; i < meshes.size(); i++) {
+		shader.UseShader();
+		meshes[i].DrawInstanced(shader, numberOfInstances);
+	}
+}
+
 void Model::Draw()
 {
 	for (unsigned int i = 0; i < meshes.size(); i++) {

@@ -20,13 +20,16 @@ public:
 		LoadModel(path);
 	}
 	void Draw(Shader& shader);
+	void DrawInstanced(Shader& shader, unsigned int numberOfInstances);
 	void Draw();
 	void SetShader(Shader* shader_pointer) {
 		shader = shader_pointer;
 	}
+	
+	// TODO: RETURN TO PRIVATE ONCE DEMO IS DONE!!!!!!!!!
+	vector<Mesh> meshes;
 private:
 	// Fields
-	vector<Mesh> meshes;
 	vector<Texture> textures_loaded;
 	string directory;
 	Shader * shader;

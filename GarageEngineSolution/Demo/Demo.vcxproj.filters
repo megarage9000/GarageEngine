@@ -74,4 +74,9 @@
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="meshInstance.vert">
+      <Filter>Shaders</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

@@ -89,25 +89,28 @@ int main() {
 	Model planet{ "..\\testMeshes\\planet\\planet.obj" };
 	Model asteroid{ "..\\testMeshes\\rock\\rock.obj" };
 	Shader meshShader{ "mesh.vert", "mesh.frag" };
+	Shader instanceShader{ "meshInstance.vert", "mesh.frag" };
 
 	GarageEngine::EngineObject planetTransformObject{ Vec3{0.0f, 0.0f, 0.0f}, Versor{} };
 	GarageEngine::EngineObject asteroidTransformObject{ Vec3{10.0f, 0.0f, 10.0f}, Versor{} };
 
-	GarageEngine::RenderableObject asteroidObject{ asteroidTransformObject, &asteroid, &meshShader };
-	GarageEngine::RenderableObject planetObject{ planetTransformObject, &planet, &meshShader };
+	GarageEngine::RenderableObject planetObject{ planetTransformObject, &planet, &meshShader};
+	GarageEngine::RenderableObject asteroidObject{ asteroidTransformObject, &asteroid, &instanceShader };
 	
-	unsigned int amount = 1000;
+	unsigned int amount = 10000;
 	vector<Vec3> positions;
 	vector<Vec3> scales;
 	vector<Versor> rotations;
+	vector<std::array<float, 16>> modelTransforms;
 
 	srand(glfwGetTime());
 
-	float radius = 50.0;
-	float offset = 2.5f;
+	float radius = 45.0;
+	float offset = 10.5f;
 
 	for (unsigned int i = 0; i < amount; i++) {
 		
+		Mat4 modelTransform{};
 
 		// 1. Translation
 		float angle = float(i) / float(amount) * 360.0f;
@@ -129,12 +132,54 @@ int main() {
 
 		// 3. Scales
 		float scaleMag = (rand() % 20) / 100.0f + 0.05f;
-		Vec3 scale{ scaleMag, scaleMag, scaleMag };
+		Vec3 scaleVector{ scaleMag, scaleMag, scaleMag };
 
 		positions.push_back(translation);
 		rotations.push_back(rotation);
-		scales.push_back(scale);
+		scales.push_back(scaleVector);
+
+		modelTransform = translate(translation) * rotation.to_matrix() * scale(scaleVector);
+		modelTransforms.push_back(modelTransform.transpose().data());
 	}
+
+	// Using instanced capabilities with instanced models
+	unsigned int instancedMatrixBuffer;
+	glGenBuffers(1, &instancedMatrixBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, instancedMatrixBuffer);
+	glBufferData(GL_ARRAY_BUFFER, modelTransforms.size() * sizeof(std::array<float, 16>), modelTransforms.data(), GL_STATIC_DRAW);
+
+	for (Mesh& mesh : asteroid.meshes) {
+
+		const unsigned int VAO = mesh.GetVAO();
+		glBindVertexArray(VAO);
+		glBindBuffer(GL_ARRAY_BUFFER, instancedMatrixBuffer);
+
+		const size_t vec4Size = sizeof(std::array<float, 4>);
+		
+		// Enabling vertex array for a matrix
+		// - Here, since it is mat4, we enable 4 different vec4 arrays, starting at the layout where it starts
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)0);
+
+		glEnableVertexAttribArray(5);
+		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(vec4Size));
+		
+		glEnableVertexAttribArray(6);
+		glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(2 * vec4Size));
+		
+		glEnableVertexAttribArray(7);
+		glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(3 * vec4Size));
+
+		glVertexAttribDivisor(4, 1);
+		glVertexAttribDivisor(5, 1);
+		glVertexAttribDivisor(6, 1);
+		glVertexAttribDivisor(7, 1);
+
+		glBindVertexArray(0);
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
@@ -157,15 +202,18 @@ int main() {
 		//glBindVertexArray(instancingVAO);
 		//glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
 
-		planetObject.Update(cameraObject, projection);
+		 planetObject.Update(cameraObject, projection);
 
-		for (int i = 0; i < amount; i++) {
-			asteroidObject.engine_object.SetRotation(rotations[i]);
-			asteroidObject.engine_object.SetPosition(positions[i]);
-			asteroidObject.engine_object.SetScale(scales[i]);
-			asteroidObject.Update(cameraObject, projection);
-		}
-		asteroidObject.Update(cameraObject, projection);
+		//for (int i = 0; i < amount; i++) {
+		//	asteroidObject.engine_object.SetRotation(rotations[i]);
+		//	asteroidObject.engine_object.SetPosition(positions[i]);
+		//	asteroidObject.engine_object.SetScale(scales[i]);
+		//	asteroidObject.Update(cameraObject, projection);
+		//}
+		
+
+		asteroidObject.UpdateInstances(cameraObject, projection, 1000);
+
 		
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;

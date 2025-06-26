@@ -120,6 +120,7 @@ namespace GarageEngine {
 			: engine_object(engine_object), model(model), shader(shader) {}
 
 		virtual void Update(CameraObject& camera_object, const Mat4& projection_matrix);
+		virtual void UpdateInstances(CameraObject& camera_object, const Mat4& projection_matrix, unsigned int instances);
 		virtual ~RenderableObject() = default;
 		
 	};
