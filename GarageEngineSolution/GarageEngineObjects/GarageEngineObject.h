@@ -47,6 +47,8 @@ namespace GarageEngine {
 		EngineObject();
 		EngineObject(Vec3 position, Versor orientation);
 		void SetPosition(Vec3 position);
+		void SetScale(Vec3 scale);
+		void SetRotation(Versor rotation);
 		void SetForward(Vec3 forward);
 		void SetRight(Vec3 right);
 		void SetUp(Vec3 up);

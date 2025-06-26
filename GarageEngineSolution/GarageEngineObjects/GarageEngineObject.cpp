@@ -19,10 +19,16 @@ namespace GarageEngine {
 		ApplyDirections();
 	}
 
-
-
 	void EngineObject::SetPosition(Vec3 position) {
 		this->position = position;
+	}
+	void EngineObject::SetScale(Vec3 scale)
+	{
+		this->scale_dimensions = scale;
+	}
+	void EngineObject::SetRotation(Versor rotation)
+	{
+		this->orientation = rotation;
 	}
 	void EngineObject::SetForward(Vec3 forward) {
 		this->forward = forward;

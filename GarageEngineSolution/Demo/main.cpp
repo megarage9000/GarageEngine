@@ -95,6 +95,46 @@ int main() {
 
 	GarageEngine::RenderableObject asteroidObject{ asteroidTransformObject, &asteroid, &meshShader };
 	GarageEngine::RenderableObject planetObject{ planetTransformObject, &planet, &meshShader };
+	
+	unsigned int amount = 1000;
+	vector<Vec3> positions;
+	vector<Vec3> scales;
+	vector<Versor> rotations;
+
+	srand(glfwGetTime());
+
+	float radius = 50.0;
+	float offset = 2.5f;
+
+	for (unsigned int i = 0; i < amount; i++) {
+		
+
+		// 1. Translation
+		float angle = float(i) / float(amount) * 360.0f;
+		float displacement = (rand() % (int)(2 * offset * 100)) / 100.0f - offset;
+
+		float x = sin(angle) * radius + displacement;
+		displacement = (rand() % (int)(2 * offset * 100)) / 100.0f - offset;
+
+		float y = displacement * 0.4f;
+		displacement = (rand() % (int)(2 * offset * 100)) / 100.0f - offset;
+
+		float z = cos(angle) * radius + displacement;
+		
+		Vec3 translation{x, y, z};
+
+		// 2. Rotations
+		float rotationAngle = (rand() * 360.0f);
+		Versor rotation{ Vec3 {0.4f, 0.6f, 0.8f}, rotationAngle };
+
+		// 3. Scales
+		float scaleMag = (rand() % 20) / 100.0f + 0.05f;
+		Vec3 scale{ scaleMag, scaleMag, scaleMag };
+
+		positions.push_back(translation);
+		rotations.push_back(rotation);
+		scales.push_back(scale);
+	}
 
 	// Input handle
 	glfwSetKeyCallback(window, input_callback);
@@ -117,14 +157,20 @@ int main() {
 		//glBindVertexArray(instancingVAO);
 		//glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 100);
 
-		asteroidObject.Update(cameraObject, projection);
 		planetObject.Update(cameraObject, projection);
 
+		for (int i = 0; i < amount; i++) {
+			asteroidObject.engine_object.SetRotation(rotations[i]);
+			asteroidObject.engine_object.SetPosition(positions[i]);
+			asteroidObject.engine_object.SetScale(scales[i]);
+			asteroidObject.Update(cameraObject, projection);
+		}
+		asteroidObject.Update(cameraObject, projection);
+		
 		double current_time = glfwGetTime();
 		elapsed_seconds = current_time - previous_time;
 		previous_time = current_time;
 		
-
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
