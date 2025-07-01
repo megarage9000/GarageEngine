@@ -204,6 +204,7 @@ int main() {
 
 		 planetObject.Update(cameraObject, projection);
 
+		 // Demonstrating the drawing of many asteroids w/o instancing
 		//for (int i = 0; i < amount; i++) {
 		//	asteroidObject.engine_object.SetRotation(rotations[i]);
 		//	asteroidObject.engine_object.SetPosition(positions[i]);

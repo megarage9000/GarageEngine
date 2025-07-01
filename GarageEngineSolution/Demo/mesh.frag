@@ -42,3 +42,4 @@ void main()
 		FragColor += vec4(specular, 0.0f);
 	}
 }
+
