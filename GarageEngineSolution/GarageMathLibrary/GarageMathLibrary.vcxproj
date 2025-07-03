@@ -138,11 +138,13 @@
   <ItemGroup>
     <ClInclude Include="GarageLinearAlgebra.h" />
     <ClInclude Include="GarageLinearTransformations.h" />
+    <ClInclude Include="GarageMath.h" />
     <ClInclude Include="GarageMathLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GarageLinearAlgebra.cpp" />
     <ClCompile Include="GarageLinearTransformations.cpp" />
+    <ClCompile Include="GarageMath.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

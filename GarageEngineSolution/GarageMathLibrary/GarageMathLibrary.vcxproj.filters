@@ -24,12 +24,18 @@
     <ClInclude Include="GarageLinearTransformations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GarageMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GarageLinearAlgebra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GarageLinearTransformations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GarageMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

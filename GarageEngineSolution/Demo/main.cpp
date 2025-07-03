@@ -48,6 +48,9 @@ void toggle_mouse_lock(GLFWwindow* window);
 
 int main() {	
 
+	Vector4 test{ 1.0f, 1.0f, 1.0f, 1.0f };
+	test = 4.0f * test;
+
 	if (!restart_gl_log()) {
 		return -1;
 	}

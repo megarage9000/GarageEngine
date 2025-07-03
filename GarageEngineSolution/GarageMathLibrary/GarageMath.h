@@ -1,0 +1,51 @@
+#pragma once
+
+#include <array>
+#include "GarageLinearAlgebra.h"
+
+namespace GarageLinearAlgebra {
+
+	// Defining typedefs here as PODS
+	using Vector2 = std::array<float, 2>;
+	using Vector3 = std::array<float, 3>;
+	using Vector4 = std::array<float, 4>;
+	using Matrix2 = std::array<float, 4>;
+	using Matrix3 = std::array<float, 9>;
+	using Matrix4 = std::array<float, 16>;
+
+	// constexpr operations
+
+	// --- Vector4 ---- 
+	inline Vector4 operator* (const float& scalar, const Vector4& vector) {
+		return Vector4 {
+			vector[0] * scalar,
+			vector[1] * scalar,
+			vector[2] * scalar,
+			vector[3] * scalar
+		};
+	}
+
+	inline Vector4 operator* (const Vector4& vector, const float& scalar) {
+		return scalar * vector;
+	}
+
+	inline Matrix4 operator*(const Vector4& vectorA, const Vector4& vectorB) {
+		Matrix4 res;
+		multiply_vectors(vectorA.data(), vectorB.data(), res.data(), 4, 16);
+		return res;
+	}
+
+	inline Vec4 operator+(const Vector4& vectorA, const Vector4& vectorB) {
+		Vector4 res;
+		add_vectors(vectorA.data(), vectorB.data(), res.data(), 4);
+		return res;
+	}
+
+	inline Vec4 operator-(const Vector4& vectorA, const Vector4& vectorB) {
+		Vector4 res;
+		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 4);
+		return res;
+	}
+}
+
+

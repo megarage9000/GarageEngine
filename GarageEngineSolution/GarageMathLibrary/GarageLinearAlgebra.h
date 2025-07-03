@@ -130,13 +130,13 @@ namespace GarageLinearAlgebra
     // --- Vectors --- 
 
     // Multiple row and column vector
-    void multiply_vectors(float row_vector[], float col_vector[], float res[], int length, int result_length);
+    void multiply_vectors(const float row_vector[], const float col_vector[], float res[], int length, int result_length);
 
     // Add vectors
-    void add_vectors(float a[], float b[], float res[], int length);
+    void add_vectors(const float a[], const float b[], float res[], int length);
 
     // Subtract vectors
-    void subtract_vectors(float a[], float b[], float res[], int length);
+    void subtract_vectors(const float a[], const float b[], float res[], int length);
 
     // Normalizes vector a to length 1
     void normalize_vector(float a[], int a_length);

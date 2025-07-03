@@ -716,7 +716,7 @@ namespace GarageLinearAlgebra
     }
 
     // --- Vectors ---- 
-    void multiply_vectors(float row_vector[], float col_vector[], float res[], int length, int result_length) {
+    void multiply_vectors(const float row_vector[], const float col_vector[], float res[], int length, int result_length) {
         if (length * length != result_length) {
             for (int i = 0; i < result_length; i++) {
                 res[i] = 0.0f;
@@ -731,14 +731,14 @@ namespace GarageLinearAlgebra
         }
     }
 
-    void add_vectors(float a[], float b[], float res[], int length) {
+    void add_vectors(const float a[], const float b[], float res[], int length) {
         for (int i = 0; i < length; i++) {
             res[i] = a[i] + b[i];
         }
     }
 
 
-    void subtract_vectors(float a[], float b[], float res[], int length) {
+    void subtract_vectors(const float a[], const float b[], float res[], int length) {
         for (int i = 0; i < length; i++) {
             res[i] = a[i] - b[i];
         }
