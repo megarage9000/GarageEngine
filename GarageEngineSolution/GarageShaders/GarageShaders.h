@@ -41,6 +41,7 @@ public:
 	void SetMatrix4(const char* id, Mat4 matrix, GLboolean transpose = GL_FALSE, GLsizei count = 1);
 	void SetVector4(const char* id, Vec4 vector, GLsizei count = 1);
 	void SetVector3(const char* id, Vec3 vector, GLsizei count = 1);
+	void SetVector2(const char* id, const float vector[2], GLsizei count = 1);
 	void SetFloat(const char* id, float value, GLsizei count = 1);
 	void SetInt(const char* id, int value, GLsizei count = 1);
 	void SetIntArray(const char* id, const int* values, GLsizei count);

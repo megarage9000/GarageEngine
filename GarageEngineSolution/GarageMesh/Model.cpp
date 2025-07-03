@@ -8,6 +8,14 @@ void Model::Draw(Shader& shader) {
 	}
 }
 
+void Model::DrawInstanced(Shader& shader, unsigned int numberOfInstances)
+{
+	for (unsigned int i = 0; i < meshes.size(); i++) {
+		shader.UseShader();
+		meshes[i].DrawInstanced(shader, numberOfInstances);
+	}
+}
+
 void Model::Draw()
 {
 	for (unsigned int i = 0; i < meshes.size(); i++) {
@@ -30,6 +38,19 @@ void Model::LoadModel(string path) {
 
 	directory = path.substr(0, path.find_last_of('\\'));
 	std::cout << "directory: " << directory << std::endl;
+	
+	int totalTextures = 0;
+	// Iterate through all materials
+	for (unsigned int i = 0; i < scene->mNumMaterials; ++i) {
+		aiMaterial* material = scene->mMaterials[i];
+
+		// Check for different types of textures
+		for (int type = aiTextureType_NONE; type <= aiTextureType_UNKNOWN; ++type) {
+			totalTextures += material->GetTextureCount(static_cast<aiTextureType>(type));
+		}
+	}
+
+	std::cout << "Total number of textures for " << directory << ":" << totalTextures << std::endl;
 	ProcessNode(scene->mRootNode, scene);
 }
 

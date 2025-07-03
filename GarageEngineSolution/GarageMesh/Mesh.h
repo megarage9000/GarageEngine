@@ -32,19 +32,22 @@ private:
 
 	// Mesh Data
 	vector<Vertex> vertices;
-	vector<unsigned int> indices;
 	vector<Texture> textures;
 
 	unsigned int VAO, VBO, EBO;
 	void SetupMesh();
 
 public:
+	vector<unsigned int> indices;
 	
 	Mesh(vector<Vertex> _vertices, vector<unsigned int> _indices, vector<Texture> _textures) : 
 		vertices(_vertices), indices(_indices), textures(_textures) {
 		SetupMesh();
 	}
 	void Draw(Shader& shader);
+	void DrawInstanced(Shader& shader, unsigned int numberOfInstances);
+
+	const unsigned int GetVAO();
 };
 
 #endif
