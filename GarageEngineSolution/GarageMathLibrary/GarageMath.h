@@ -36,13 +36,13 @@ namespace GarageLinearAlgebra {
 		return res;
 	}
 
-	inline Vec4 operator+(const Vector4& vectorA, const Vector4& vectorB) {
+	inline Vector4 operator+(const Vector4& vectorA, const Vector4& vectorB) {
 		Vector4 res;
 		add_vectors(vectorA.data(), vectorB.data(), res.data(), 4);
 		return res;
 	}
 
-	inline Vec4 operator-(const Vector4& vectorA, const Vector4& vectorB) {
+	inline Vector4 operator-(const Vector4& vectorA, const Vector4& vectorB) {
 		Vector4 res;
 		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 4);
 		return res;
@@ -64,6 +64,18 @@ namespace GarageLinearAlgebra {
 	inline Matrix3 operator* (const Vector3& vectorA, const Vector3& vectorB) {
 		Matrix3 res;
 		multiply_vectors(vectorA.data(), vectorB.data(), res.data(), 3, 9);
+		return res;
+	}
+
+	inline Vector3 operator+ (const Vector3& vectorA, const Vector3& vectorB) {
+		Vector3 res;
+		add_vectors(vectorA.data(), vectorB.data(), res.data(), 3);
+		return res;
+	}
+
+	inline Vector3 operator- (const Vector3& vectorA, const Vector3& vectorB) {
+		Vector3 res;
+		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 3);
 		return res;
 	}
 }
