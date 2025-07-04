@@ -78,6 +78,37 @@ namespace GarageLinearAlgebra {
 		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 3);
 		return res;
 	}
+
+	// --- Vector 2 ---
+
+	inline Vector2 operator * (const float& scalar, const Vector2& vector) {
+		return Vector2{
+			vector[0] * scalar,
+			vector[1] * scalar
+		};
+	}
+
+	inline Vector2 operator * (const Vector2& vector, const float& scalar) {
+		return scalar * vector;
+	}
+
+	inline Matrix2 operator * (const Vector2& vectorA, const Vector2& vectorB) {
+		Matrix2 res;
+		multiply_vectors(vectorA.data(), vectorB.data(), res.data(), 2, 4);
+		return res;
+	}
+
+	inline Vector2 operator + (const Vector2& vectorA, const Vector2& vectorB) {
+		Vector2 res;
+		add_vectors(vectorA.data(), vectorB.data(), res.data(), 2);
+		return res;
+	}
+
+	inline Vector2 operator - (const Vector2& vectorA, const Vector2& vectorB) {
+		Vector2 res;
+		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 2);
+		return res;
+	}
 }
 
 
