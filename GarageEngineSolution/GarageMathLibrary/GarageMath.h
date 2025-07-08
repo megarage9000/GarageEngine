@@ -134,13 +134,22 @@ namespace GarageLinearAlgebra {
 	inline Matrix operator * (const Matrix& matrixA, const Matrix& matrixB) {
 		constexpr float dim = Traits::get_dimension();
 		Matrix res;
-		switch (dim) {
-		case 4:
+		
+		if constexpr (dim == 4) {
 			matrix4_multi(
 				Traits::getData(matrixA),
 				Traits::getData(matrixB),
 				Traits::getData(res),
 				4
+			);
+		}
+
+		if constexpr (dim == 3) {
+			matrix3_multi(
+				Traits::getData(matrixA),
+				Traits::getData(matrixB),
+				Traits::getData(res),
+				3
 			);
 		}
 		return res;
