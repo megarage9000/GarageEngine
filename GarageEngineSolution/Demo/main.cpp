@@ -48,8 +48,13 @@ void toggle_mouse_lock(GLFWwindow* window);
 
 int main() {	
 
-	Vector4 test{ 1.0f, 1.0f, 1.0f, 1.0f };
-	test = 4.0f * test;
+	Matrix4 test;
+
+	cout << MatrixAt(test, 1, 1) << "\n";
+	float random = 30.0f;
+	MatrixSet(test, 1, 1, random);
+	cout << MatrixAt(test, 1, 1) << "\n";
+
 
 	if (!restart_gl_log()) {
 		return -1;

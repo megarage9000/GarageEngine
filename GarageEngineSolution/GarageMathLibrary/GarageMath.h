@@ -109,6 +109,79 @@ namespace GarageLinearAlgebra {
 		subtract_vectors(vectorA.data(), vectorB.data(), res.data(), 2);
 		return res;
 	}
+
+	// Matrix type traits
+	template <typename Matrix>
+	struct MatrixTraits {
+		using Invalid = typename Matrix::InvalidMatrixError;
+	};
+
+	template <typename Matrix, typename Traits = MatrixTraits<Matrix>>
+	float MatrixAt(const Matrix& matrix, const int& row, const int& col) {
+		constexpr float dim = Traits::get_dimension();
+		assert(row >= 0 && row < dim && col >= 0 && col < dim, "Invalid row / col for matrix");
+		return matrix[row * dim + col];
+	}
+
+	template<typename Matrix, typename Traits = MatrixTraits<Matrix>>
+	void MatrixSet(Matrix& matrix, const int& row, const int& col, const float& value) {
+		constexpr float dim = Traits::get_dimension();
+		assert(row >= 0 && row < dim && col >= 0 && col < dim, "Invalid row / col for matrix");
+		matrix[row * dim + col] = value;
+	}
+
+	template<typename Matrix, typename Traits = MatrixTraits<Matrix>>
+	inline Matrix operator * (const Matrix& matrixA, const Matrix& matrixB) {
+		constexpr float dim = Traits::get_dimension();
+		Matrix res;
+		switch (dim) {
+		case 4:
+			matrix4_multi(
+				Traits::getData(matrixA),
+				Traits::getData(matrixB),
+				Traits::getData(res),
+				4
+			);
+		}
+		return res;
+	}
+
+	template <>
+	struct MatrixTraits<Matrix4> {
+		using Matrix = Matrix4;
+		static constexpr int get_dimension() noexcept {
+			return 4;
+		}
+
+		static float* getData(Matrix& matrix) {
+			return matrix.data();
+		}
+	};
+
+	template<>
+	struct MatrixTraits<Matrix3> {
+		using Matrix = Matrix3;
+		static constexpr int get_dimension() noexcept {
+			return 3;
+		}
+		
+		static float* getData(Matrix& matrix) {
+			return matrix.data();
+		}
+	};
+
+	template<>
+	struct MatrixTraits<Matrix2> {
+		using Matrix = Matrix2;
+		static constexpr int get_dimension() noexcept {
+			return 2;
+		}
+
+		static float* getData(Matrix& matrix) {
+			return matrix.data();
+		}
+	};
+
 }
 
 
