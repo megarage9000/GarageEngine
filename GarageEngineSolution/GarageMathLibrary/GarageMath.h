@@ -110,7 +110,7 @@ namespace GarageLinearAlgebra {
 		return res;
 	}
 
-	// Matrix type traits
+	// --- Matrix type traits --- 
 	template <typename Matrix>
 	struct MatrixTraits {
 		using Invalid = typename Matrix::InvalidMatrixError;
@@ -131,6 +131,33 @@ namespace GarageLinearAlgebra {
 	}
 
 	template<typename Matrix, typename Traits = MatrixTraits<Matrix>>
+	Matrix Inverse(const Matrix& matrix) {
+		constexpr float dim = Traits::get_dimension();
+		Matrix res;
+		if constexpr (dim == 4) {
+			matrix4_inv(matrix, res);
+		}
+
+		else if constexpr (dim == 3) {
+			matrix3_inv(matrix, res);
+		}
+		return res;
+	}
+
+	template<typename Matrix, typename Traits = MatrixTraits<Matrix>>
+	Matrix Transpose(Matrix& matrix) {
+		constexpr float dim = Traits::get_dimension();
+		if constexpr (dim == 4) {
+			transpose_matrix4(matrix);
+		}
+
+		else if constexpr (dim == 3) {
+			transpose_matrix(matrix);
+		}
+
+	}
+
+	template<typename Matrix, typename Traits = MatrixTraits<Matrix>>
 	inline Matrix operator * (const Matrix& matrixA, const Matrix& matrixB) {
 		constexpr float dim = Traits::get_dimension();
 		Matrix res;
@@ -144,7 +171,7 @@ namespace GarageLinearAlgebra {
 			);
 		}
 
-		if constexpr (dim == 3) {
+		else if constexpr (dim == 3) {
 			matrix3_multi(
 				Traits::getData(matrixA),
 				Traits::getData(matrixB),

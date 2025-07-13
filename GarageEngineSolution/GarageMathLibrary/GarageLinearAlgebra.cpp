@@ -486,7 +486,7 @@ namespace GarageLinearAlgebra
         matrix4_multi(a, b, result_arr, false);
     }
 
-    void matrix4_inv(float a[], float result_arr[], int a_len, int result_len) {
+    void matrix4_inv(const float a[], float result_arr[], int a_len, int result_len) {
         if (a_len == result_len && a_len == 16) {
             matrix4_inv(a, result_arr);
         }
@@ -497,7 +497,7 @@ namespace GarageLinearAlgebra
 
     // NEED TO REWORK THIS!
     // https://www.codespeedy.com/matrix-inversion-in-cpp/
-    void matrix4_inv(float a[], float result_arr[]) {
+    void matrix4_inv(const float a[], float result_arr[]) {
 
         // Finding determinant using Laplace method
         // - |M| = aM1 - bM2 + cM3 - dM4
@@ -549,7 +549,7 @@ namespace GarageLinearAlgebra
         swap(a[14], a[11]);
     }
 
-    float matrix4_minors_val(float a[], int row, int col) {
+    float matrix4_minors_val(const float a[], int row, int col) {
         float minors[9];
         int minors_ind = 0;
         // Find ways to improve this!
@@ -597,7 +597,7 @@ namespace GarageLinearAlgebra
             }
         }
     }
-    float determinant_matrix3(float a[]) {
+    float determinant_matrix3(const float a[]) {
         return a[0] * (a[4] * a[8] - a[5] * a[7]) -
             a[1] * (a[3] * a[8] - a[5] * a[6]) +
             a[2] * (a[3] * a[7] - a[4] * a[6]);
@@ -652,7 +652,7 @@ namespace GarageLinearAlgebra
         matrix3_multi(a, b, result_arr, false);
     }
 
-    void matrix3_inv(float a[], float result_arr[]) {
+    void matrix3_inv(const float a[], float result_arr[]) {
         // See matrix4_inv for detailed walkthrough
 
         // Check determinant
@@ -683,7 +683,7 @@ namespace GarageLinearAlgebra
         }
     }
 
-    float matrix3_minors_val(float a[], int row, int col) {
+    float matrix3_minors_val(const float a[], int row, int col) {
         float minors_val[4];
         int minors_ind = 0;
 

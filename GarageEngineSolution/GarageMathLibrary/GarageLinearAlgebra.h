@@ -71,15 +71,15 @@ namespace GarageLinearAlgebra
     void matrix4_multi(float a[], float b[], float result_arr[]);
 
     // Calculates inverse of a matrix
-    void matrix4_inv(float a[], float result_arr[], int a_len, int result_len);
+    void matrix4_inv(const float a[], float result_arr[], int a_len, int result_len);
 
     // Assumes length are correct. Calculates inverse of a matrix 4
     // - Uses the Minors + Cofactors + Adjugate method
     // - Link: https://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html
-    void matrix4_inv(float a[], float result_arr[]);
+    void matrix4_inv(const float a[], float result_arr[]);
 
     // Gets minors values from a subset 3x3 matrix with a given row, column
-    float matrix4_minors_val(float a[], int row, int col);
+    float matrix4_minors_val(const float a[], int row, int col);
 
     // Performs an in-place transpose on the matrix 4
     void transpose_matrix4(float a[]);
@@ -115,13 +115,13 @@ namespace GarageLinearAlgebra
     // Assumes length are correct. Calculates inverse of a matrix 3
     // - Uses the Minors + Cofactors + Adjugate method
     // - Link: https://www.mathsisfun.com/algebra/matrix-inverse-minors-cofactors-adjugate.html
-    void matrix3_inv(float a[], float result_arr[]);
+    void matrix3_inv(const float a[], float result_arr[]);
 
     // Returns determinant of a given matrix3
-    float determinant_matrix3(float a[]);
+    float determinant_matrix3(const float a[]);
 
     // Gets minors values from a subset 2x2 matrix with a given row, column
-    float matrix3_minors_val(float a[], int row, int col);
+    float matrix3_minors_val(const float a[], int row, int col);
 
     // Performs an in-place transpose on the matrix 3
     void transpose_matrix3(float a[]);
