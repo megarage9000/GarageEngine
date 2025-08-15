@@ -32,7 +32,7 @@ class Shader {
 
 public:
 	Shader();
-	Shader(const char* vertex_shader, const char* fragment_shader);
+	Shader(const char* vertex_shader, const char* fragment_shader, const char* geometry_shader = nullptr);
 	void printAll();
 	void UseShader();
 	GLuint GetShaderProgramID();

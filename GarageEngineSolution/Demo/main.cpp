@@ -108,6 +108,35 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	// Geometry Shaders demo
+	float points[] = {
+		-0.5f, 0.5f,
+		0.5f, 0.5f,
+		0.5f, -0.5f,
+		-0.5f, -0.5f
+	};
+
+	Shader garageShader{
+		"geomDemo.vert",
+		"geomDemo.frag",
+		"geomDemo.geom"
+	};
+
+	GLuint VAO, VBO;
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(float[2]), &points[0], GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float[2]), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
 	while (!glfwWindowShouldClose(window)) {
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -115,16 +144,19 @@ int main() {
 
 		input_continuous_callback(window);
 
-		double current_time = glfwGetTime();
-		elapsed_seconds = current_time - previous_time;
-		previous_time = current_time;
+		//double current_time = glfwGetTime();
+		//elapsed_seconds = current_time - previous_time;
+		//previous_time = current_time;
+		//
+		//for (GarageEngine::RenderableObject& renderable : renderableObjects) {
+
+		//	// renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
+		//	renderable.Update(cameraObject, projection);
+		//}
+		glBindVertexArray(VAO);
+		garageShader.UseShader();
+		glDrawArrays(GL_POINTS, 0, 4);
 		
-		for (GarageEngine::RenderableObject& renderable : renderableObjects) {
-
-			// renderable.engine_object.ApplyTranslation(Vec3{ 0.0f, 1.0f * (float)elapsed_seconds, 0.0f });
-			renderable.Update(cameraObject, projection);
-		}
-
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}

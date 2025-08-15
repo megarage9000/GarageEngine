@@ -171,6 +171,10 @@
     <None Include="..\OpenGLCommon\Shaders\pointLightShader.frag" />
     <None Include="..\OpenGLCommon\Shaders\spotLightShader.frag" />
     <None Include="..\OpenGLCommon\Shaders\vertexShader.vert" />
+    <None Include="geomDemo.frag" />
+    <None Include="geomDemo.geom" />
+    <None Include="geomDemo.vert" />
+    <None Include="linestrip.geom" />
     <None Include="mesh.frag" />
     <None Include="mesh.vert" />
   </ItemGroup>

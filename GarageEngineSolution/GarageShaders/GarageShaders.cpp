@@ -176,14 +176,20 @@ void Shader::printAll()
 	}
 }
 
-Shader::Shader(const char* vertex_shader, const char* fragment_shader) {
+Shader::Shader(const char* vertex_shader, const char* fragment_shader, const char* geometry_shader) {
 
 	GLuint vertex_shader_id = CreateShader(vertex_shader, GL_VERTEX_SHADER);
 	GLuint fragment_shader_id = CreateShader(fragment_shader, GL_FRAGMENT_SHADER);
 
+	
+
 	shader_program = glCreateProgram();
 	glAttachShader(shader_program, vertex_shader_id);
 	glAttachShader(shader_program, fragment_shader_id);
+	if (geometry_shader != nullptr) {
+		GLuint geometry_shader_id = CreateShader(geometry_shader, GL_GEOMETRY_SHADER);
+		glAttachShader(shader_program, geometry_shader_id);
+	}
 
 	glLinkProgram(shader_program);
 	if (!checkLinking(shader_program) || !is_valid(shader_program)) {

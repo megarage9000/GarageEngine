@@ -67,5 +67,17 @@
     <None Include="mesh.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="geomDemo.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="geomDemo.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="geomDemo.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="linestrip.geom">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
